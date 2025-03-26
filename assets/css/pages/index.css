@@ -112,13 +112,15 @@ main{
         flex-flow: row wrap;
         width: 100%;
         margin-top: 2%;
-        justify-content: space-around;
+        justify-content: center;
+        gap: 30px;
         
         .container__card{
             background-color: var(--violeta);
             color: var(--branco);
             display: flex;
             flex-flow: column wrap;
+            justify-content: space-between;
             width: 30%;
             padding: 20px;
             gap: 5px;
