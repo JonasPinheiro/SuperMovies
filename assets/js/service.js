@@ -12,14 +12,28 @@ async function pegarChaveApi(){
 
 export async function buscarTodosOsFilmes() {
     const apiKey = await pegarChaveApi();
-    const language = "pt-BR"
+    const language = "pt-BR";
 
     try{
         const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=${language}`);
         const filmes = await res.json();
         return filmes;
     }catch(err){
-        console.error(`Erro ao buscar todos os filmes: ${err}`);
+        console.error(`Erro ao buscar todos os filmes!!! ${err}`);
+    }
+}
+
+export async function buscarFilmesQueChegamEmBreve(){
+    const apiKey = await pegarChaveApi();
+    const language = "pt-BR";
+
+    try{
+        const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&languagem=${language}`);
+        const filmes = await res.json();
+        return filmes;
+
+    }catch(err){
+        console.error(`Erro ao buscar filmes que chegam em breve!!! ${err}`)
     }
 }
 
