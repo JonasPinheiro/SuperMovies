@@ -12,11 +12,12 @@ async function pegarChaveApi(){
 
 export async function buscarTodosOsFilmes() {
     const apiKey = await pegarChaveApi();
+    const language = "pt-BR"
 
     try{
-        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`);
+        const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=${language}`);
         const filmes = await res.json();
-        console.log(filmes);
+        return filmes;
     }catch(err){
         console.error(`Erro ao buscar todos os filmes: ${err}`);
     }
