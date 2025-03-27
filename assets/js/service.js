@@ -15,8 +15,22 @@ export async function buscarTodosOsFilmes() {
     const language = "pt-BR";
 
     try{
+        const resGenereos = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=${language}`);
+        const { genres: generos } = await resGenereos.json();
+
+        const generosNames = {};
+
+        generos.forEach(genero =>{
+            generosNames[genero.id] = genero.name;
+        })
+
         const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=${language}`);
         const filmes = await res.json();
+        
+        filmes.results.forEach(filme => {
+            filme.genre_name = filme.genre_ids.map(id => generosNames[id] || "Desconhecido");
+        });
+
         return filmes;
     }catch(err){
         console.error(`Erro ao buscar todos os filmes!!! ${err}`);
@@ -28,12 +42,25 @@ export async function buscarFilmesQueChegamEmBreve(){
     const language = "pt-BR";
 
     try{
-        const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&languagem=${language}`);
-        const filmes = await res.json();
-        return filmes;
+        const resGenereos = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=${language}`);
+        const { genres: generos } = await resGenereos.json();
 
+        const generosNames = {};
+
+        generos.forEach(genero =>{
+            generosNames[genero.id] = genero.name;
+        })
+
+        const resEmBreve = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${apiKey}&language=${language}`);
+        const filmes = await resEmBreve.json();
+
+        filmes.results.forEach(filme => {
+            filme.genre_name = filme.genre_ids.map(id => generosNames[id] || "Desconhecido");
+        });
+
+        return filmes;
     }catch(err){
-        console.error(`Erro ao buscar filmes que chegam em breve!!! ${err}`)
+        console.error(`Erro ao buscar filmes que chegam em breve!!! ${err}`);
     }
 }
 
