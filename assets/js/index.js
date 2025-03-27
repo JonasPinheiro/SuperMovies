@@ -1,17 +1,60 @@
-import {buscarTodosOsFilmes} from './service.js';
+import {buscarTodosOsFilmes, buscarFilmesQueChegamEmBreve} from './service.js';
 
-const corpo = document.querySelector("body");
+const body = document.querySelector("body");
 const container = document.querySelector("section.container");
+const carousel = document.querySelector("section.carousel");
+let counter = 0;
 
-corpo.addEventListener("DOMContentLoaded", criarCards());
+body.addEventListener("DOMContentLoaded", (criarCards()));
+body.addEventListener("DOMContentLoaded", criarCarrosel(counter));
+body.addEventListener("DOMContentLoaded", setInterval(mudarCarrosel , 10000));
+    
+
+async function mudarCarrosel(){
+    counter++;
+    criarCarrosel(counter)
+}
+
+async function criarCarrosel(count){
+    const data = await buscarFilmesQueChegamEmBreve();
+    const {results} = data;
+    counter = counter >= results.length ? 0 : counter;
+    
+    const resultado = results[count];
+
+    const img = document.querySelector("img.carousel__img");
+    const title = document.querySelector("h2.carousel__title");
+    const overview = document.querySelector("p.carousel__overview");
+    const genre = document.querySelector("p.carousel__genre");
+    const minimumDate = document.querySelector("p.carousel__minimumDate");
+    const maximumDate = document.querySelector("p.carousel__maximumDate");
+
+    if(resultado.backdrop_path != null){
+        img.src = `https://image.tmdb.org/t/p/w500${resultado.backdrop_path}`;
+    }
+    else{
+        img.src = "/assets/imgs/semImagem.jpg";
+    }
+
+    title.textContent = resultado.original_title;
+    overview.textContent = `Sinopse: ${resultado.overview}`;
+    genre.textContent = `Generos: ${resultado.genre_name.join(" - ")}`;
+    
+    let getMinimumDate = new Date(data.dates.minimum);
+    getMinimumDate = getMinimumDate.toLocaleDateString("pt-BR");
+    minimumDate.textContent = `Data mínima: ${getMinimumDate}`;
+    
+    let getMaximumDate = new Date(data.dates.maximum);
+    getMaximumDate = getMaximumDate.toLocaleDateString("pt-BR");
+    maximumDate.textContent = `Data máxima: ${getMaximumDate}`;
+}
 
 async function criarCards(){
     const data = await buscarTodosOsFilmes();
-    console.log(data.results);
 
     data.results.forEach((filme) =>{
-        const dataLancamento = new Date(filme.release_date);
-        const dataFormatada = dataLancamento.toLocaleDateString("pt-BR");
+        const releaseDate = new Date(filme.release_date);
+        const formattedDate = releaseDate.toLocaleDateString("pt-BR");
 
         const div = document.createElement("div");
         div.setAttribute("class", "container__card");
@@ -24,38 +67,39 @@ async function criarCards(){
         const img = document.createElement("img");
         img.setAttribute("class", "container__img");
 
-        console.log(filme);
-
         if(filme.backdrop_path != null){
             img.src = `https://image.tmdb.org/t/p/w500${filme.backdrop_path}`;
         }
         else{
             img.src = "/assets/imgs/semImagem.jpg";
         }
-        
 
-        const sinopse = document.createElement("p");
-        sinopse.setAttribute("class", "container__overview");
-        sinopse.textContent = `Sinopse: ${filme.overview}`;
+        const overview = document.createElement("p");
+        overview.setAttribute("class", "container__overview");
+        overview.textContent = `Sinopse: ${filme.overview}`;
 
-        const dataLancamentoElement = document.createElement("p");
-        dataLancamentoElement.textContent = `Data de Lançamento: ${dataFormatada}`;
+        const releaseDateElement = document.createElement("p");
+        releaseDateElement.textContent = `Data de Lançamento: ${formattedDate}`;
 
-        const nota = document.createElement("p");
-        nota.textContent = `Nota ${(filme.vote_average).toFixed(2)}`;
+        const genre = document.createElement("p");
+        genre.textContent = `Gêneros: ${filme.genre_name.join(" - ")}`
 
-        const btnDetalhes = document.createElement("button"); 
-        btnDetalhes.textContent = "Ver Detalhes";
-        btnDetalhes.setAttribute("class", "container__btnDetails");
-        btnDetalhes.setAttribute("type", "button");
+        const rating = document.createElement("p");
+        rating.textContent = `Nota: ${(filme.vote_average).toFixed(2)}`;
+
+        const btnDetails = document.createElement("button"); 
+        btnDetails.textContent = "Ver Detalhes";
+        btnDetails.setAttribute("class", "container__btnDetails");
+        btnDetails.setAttribute("type", "button");
         
         figure.appendChild(figCaption);
         figure.appendChild(img);
         div.appendChild(figure);
-        div.appendChild(sinopse);
-        div.appendChild(dataLancamentoElement);
-        div.appendChild(nota);
-        div.appendChild(btnDetalhes);
+        div.appendChild(overview);
+        div.appendChild(releaseDateElement);
+        div.appendChild(genre);
+        div.appendChild(rating);
+        div.appendChild(btnDetails);
 
         container.appendChild(div);
     })
