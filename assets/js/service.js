@@ -64,3 +64,17 @@ export async function buscarFilmesQueChegamEmBreve(){
     }
 }
 
+export async function buscarFilmePorId(id) {
+    const apiKey = await pegarChaveApi();
+    const language = "pt-BR";
+
+    try{
+        const res = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=${language}`);
+        const data = await res.json();
+        return data;
+    }catch(err){
+        console.log(`Erro ao buscar filme pelo seu id!!! ${err}`)
+    }
+    
+}
+
