@@ -1,0 +1,63 @@
+@import url(/assets/css/global/global.css);
+
+* {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;   
+}
+
+body{
+    background-color: var(--branco);
+}
+
+header{
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+
+    a{
+        text-decoration: none;
+    }
+
+    h1{
+        text-align: center;
+        color: var(--roxo);
+        text-shadow: 5px 5px 20px var(--violeta);
+        font-size: 2.5rem;
+        cursor: pointer;
+        width: 30%;
+    }
+}
+
+.film__container {
+    background-color: var(--roxo);
+    display: flex;
+    margin: 0 5% 0 5%;
+
+    .film__poster img {
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .film__details {
+        background-color: var(--violeta);
+        margin: 10px 10px 10px 0;
+        padding: 20px;
+        font-size: 1.1rem;
+        display: flex;
+        justify-content: space-evenly;
+        flex-flow: column wrap;
+        color: var(--branco);
+        flex: 1;
+
+        .film__title {
+            text-shadow: 5px 5px 20px var(--branco);
+            font-size: 2.2rem;
+        }
+        
+        .film__overview {
+            
+        }
+    } 
+}

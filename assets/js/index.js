@@ -107,5 +107,17 @@ async function criarCards(){
 
         container.appendChild(div);
     })
+
+    adicionarEspacoSeNecessario();
+}
+
+function adicionarEspacoSeNecessario() {
+    const cards = document.querySelectorAll(".container__card");
+
+    if (cards.length % 3 === 2) {
+        const ghost = document.createElement("div");
+        ghost.classList.add("container__card", "ghost");
+        container.appendChild(ghost);
+    }
 }
 

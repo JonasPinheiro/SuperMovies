@@ -3,11 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/pages/film.css">
 </head>
 <body>
-    <h1>Film</h1>
+    <header>
+        <a href="/index.html"><h1>SuperMovies</h1></a>
+    </header>
 
-    <script type="module" src="assets/js/film.js"></script>
+    <main>
+        <section class="film__container">
+            <figure class="film__poster">
+                <img class="film__img" src="" alt="">
+            </figure>
+
+            <div class="film__details">
+                <h2 class="film__title"></h2>
+                <p class="film__overview"></p>
+                <p class="film__genre"></p>
+                <p class="film__releaseDate"></p>
+                <p class="film__runtime"></p>
+                <p class="film__language"></p>
+                <p class="film__rating"></p>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="/assets/js/film.js"></script>
 </body>
 </html>
