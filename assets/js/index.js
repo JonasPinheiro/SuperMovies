@@ -5,7 +5,7 @@ const container = document.querySelector("section.container");
 const carousel = document.querySelector("section.carousel");
 let counter = 0;
 
-body.addEventListener("DOMContentLoaded", (criarCards()));
+body.addEventListener("DOMContentLoaded", criarCards());
 body.addEventListener("DOMContentLoaded", criarCarrosel(counter));
 body.addEventListener("DOMContentLoaded", setInterval(mudarCarrosel , 10000));
     
@@ -87,6 +87,9 @@ async function criarCards(){
         const rating = document.createElement("p");
         rating.textContent = `Nota: ${(filme.vote_average).toFixed(2)}`;
 
+        const a = document.createElement("a");
+        a.setAttribute("href", `/film.html?id=${filme.id}`);
+
         const btnDetails = document.createElement("button"); 
         btnDetails.textContent = "Ver Detalhes";
         btnDetails.setAttribute("class", "container__btnDetails");
@@ -94,12 +97,13 @@ async function criarCards(){
         
         figure.appendChild(figCaption);
         figure.appendChild(img);
+        a.appendChild(btnDetails);
         div.appendChild(figure);
         div.appendChild(overview);
         div.appendChild(releaseDateElement);
         div.appendChild(genre);
         div.appendChild(rating);
-        div.appendChild(btnDetails);
+        div.appendChild(a);
 
         container.appendChild(div);
     })
