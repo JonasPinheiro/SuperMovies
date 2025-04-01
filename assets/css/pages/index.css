@@ -43,15 +43,19 @@ header{
         .header__inputSearch:focus{
             border-color: var(--violeta);
         }
-        
-        .header__btnSearch{
-            color: var(--branco);
-            border: solid 1px var(--violeta);
-            width: 15%;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            background-color: var(--violeta);
-            cursor: pointer;
+
+        .header__aSearch{
+            width: 20%;
+
+            .header__btnSearch{
+                width: 100%;
+                color: var(--branco);
+                border: solid 1px var(--violeta);
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                background-color: var(--violeta);
+                cursor: pointer;
+            }
         }
 
         .header__btnSearch:hover{
@@ -171,7 +175,7 @@ main{
             }
         }
 
-        .ghost{
+        .container__card--ghost{
             visibility: hidden;
         }
     }

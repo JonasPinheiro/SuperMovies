@@ -1,14 +1,19 @@
 import {buscarTodosOsFilmes, buscarFilmesQueChegamEmBreve} from './service.js';
 
-const body = document.querySelector("body");
 const container = document.querySelector("section.container");
-const carousel = document.querySelector("section.carousel");
+const aSearch = document.querySelector("a.header__aSearch");
 let counter = 0;
 
-body.addEventListener("DOMContentLoaded", criarCards());
-body.addEventListener("DOMContentLoaded", criarCarrosel(counter));
-body.addEventListener("DOMContentLoaded", setInterval(mudarCarrosel , 10000));
-    
+document.addEventListener("DOMContentLoaded", async () =>{
+    await criarCards();
+    await criarCarrosel(counter);
+
+    setInterval(mudarCarrosel, 10000)
+})
+
+aSearch.addEventListener("click", () =>{
+    aSearch.setAttribute("href", `/search.html?query=${document.querySelector(".header__inputSearch").value}`);
+})
 
 async function mudarCarrosel(){
     counter++;
@@ -116,7 +121,7 @@ function adicionarEspacoSeNecessario() {
 
     if (cards.length % 3 === 2) {
         const ghost = document.createElement("div");
-        ghost.classList.add("container__card", "ghost");
+        ghost.classList.add("container__card", "container__card--ghost");
         container.appendChild(ghost);
     }
 }
