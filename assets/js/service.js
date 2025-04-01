@@ -73,8 +73,20 @@ export async function buscarFilmePorId(id) {
         const data = await res.json();
         return data;
     }catch(err){
-        console.log(`Erro ao buscar filme pelo seu id!!! ${err}`)
+        console.log(`Erro ao buscar filme pelo seu id!!! ${err}`);
     }
-    
+}
+
+export async function buscarFilmePorNome(nome){
+    const apiKey = await pegarChaveApi();
+    const language = "pt-BR";
+
+    try{
+        const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${nome}&language=${language}`);
+        const data = await res.json();
+        console.log(data);
+    }catch(err){
+        console.error(`Erro ao buscar filme!!! ${err}`);
+    }
 }
 
