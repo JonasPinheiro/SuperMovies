@@ -84,7 +84,7 @@ export async function buscarFilmePorNome(nome){
     try{
         const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${nome}&language=${language}`);
         const data = await res.json();
-        console.log(data);
+        return data;
     }catch(err){
         console.error(`Erro ao buscar filme!!! ${err}`);
     }

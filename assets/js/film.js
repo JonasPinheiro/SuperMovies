@@ -2,11 +2,9 @@ import { buscarFilmePorId } from "./service.js";
 const url = window.location.href;
 const idFilm = url.split("=")[1];
 
-const body = document.querySelector("body");
+document.addEventListener("DOMContentLoaded", carregarInformacoesPorId(idFilm));
 
-body.addEventListener("DOMContentLoaded", carregarInformações(idFilm));
-
-async function carregarInformações(id){
+async function carregarInformacoesPorId(id){
     const data = await buscarFilmePorId(id);
     let releaseDate = new Date(data.release_date);
     releaseDate = releaseDate.toLocaleDateString("pt-BR");
