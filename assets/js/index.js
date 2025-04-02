@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () =>{
     await criarCards();
     await criarCarrosel(counter);
 
-    setInterval(mudarCarrosel, 10000)
+    setInterval(mudarCarrosel, 10000);
 })
 
 aSearch.addEventListener("click", () =>{
@@ -33,13 +33,10 @@ async function criarCarrosel(count){
     const genre = document.querySelector("p.carousel__genre");
     const minimumDate = document.querySelector("p.carousel__minimumDate");
     const maximumDate = document.querySelector("p.carousel__maximumDate");
+    const btnDetails = document.querySelector("button.carousel__btnDetails");
+    const a = document.querySelector("a.carousel__a");
 
-    if(resultado.backdrop_path != null){
-        img.src = `https://image.tmdb.org/t/p/w500${resultado.backdrop_path}`;
-    }
-    else{
-        img.src = "/assets/imgs/semImagem.jpg";
-    }
+    img.src = resultado.backdrop_path ? `https://image.tmdb.org/t/p/w500${resultado.backdrop_path}` : "/assets/imgs/semImagem.jpg";
 
     title.textContent = resultado.original_title;
     overview.textContent = `Sinopse: ${resultado.overview}`;
@@ -52,6 +49,9 @@ async function criarCarrosel(count){
     let getMaximumDate = new Date(data.dates.maximum);
     getMaximumDate = getMaximumDate.toLocaleDateString("pt-BR");
     maximumDate.textContent = `Data máxima: ${getMaximumDate}`;
+
+    btnDetails.textContent = "Ver Detalhes";
+    a.setAttribute("href", `/film.html?id=${resultado.id}`);
 }
 
 async function criarCards(){
@@ -100,16 +100,9 @@ async function criarCards(){
         btnDetails.setAttribute("class", "container__btnDetails");
         btnDetails.setAttribute("type", "button");
         
-        figure.appendChild(figCaption);
-        figure.appendChild(img);
+        figure.append(figCaption, img);
         a.appendChild(btnDetails);
-        div.appendChild(figure);
-        div.appendChild(overview);
-        div.appendChild(releaseDateElement);
-        div.appendChild(genre);
-        div.appendChild(rating);
-        div.appendChild(a);
-
+        div.append(figure, overview, releaseDateElement, genre, rating, a);
         container.appendChild(div);
     })
 
