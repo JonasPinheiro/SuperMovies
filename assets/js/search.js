@@ -4,7 +4,15 @@ const url = window.location.href;
 const query = url.split("=")[1];
 const main = document.querySelector("main");
 
-document.addEventListener("DOMContentLoaded", criarCards(query));
+document.addEventListener("DOMContentLoaded", () => {
+    if(query != ""){
+        criarCards(query);
+    }else{
+        const notResult = document.createElement("h2");
+        notResult.textContent = "Sem resultados...";
+        main.appendChild(notResult);
+    }
+});
 
 async function carregarInformacoesPorNome(nome) {
     try{
