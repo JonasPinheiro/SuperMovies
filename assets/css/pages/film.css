@@ -15,6 +15,9 @@ header{
     padding: 20px 0;
     display: flex;
     justify-content: center;
+    background: var(--violeta);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    
 
     a{
         text-decoration: none;
@@ -22,8 +25,8 @@ header{
 
     h1{
         text-align: center;
-        color: var(--roxo);
-        text-shadow: 5px 5px 20px var(--violeta);
+        color: var(--branco);
+        text-shadow: 3px 3px 15px var(--roxo);
         font-size: 2.5rem;
         cursor: pointer;
         width: 30%;
@@ -33,31 +36,71 @@ header{
 .film__container {
     background-color: var(--roxo);
     display: flex;
-    margin: 0 5% 0 5%;
+    flex-wrap: wrap;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 
     .film__poster img {
         border-radius: 10px;
-        padding: 20px;
+        width: 100%;
+        max-width: 350px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .film__details {
+        flex: 2 1 500px;
         background-color: var(--violeta);
-        margin: 10px 10px 10px 0;
+        margin: 10px;
         padding: 20px;
         font-size: 1.1rem;
         display: flex;
+        flex-direction: column;
         justify-content: space-evenly;
-        flex-flow: column wrap;
         color: var(--branco);
-        flex: 1;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 
         .film__title {
-            text-shadow: 5px 5px 20px var(--branco);
+            text-shadow: 3px 3px 10px var(--branco);
             font-size: 2.2rem;
+            text-align: center;
         }
         
-        .film__overview {
-            
+        .film__overview, .film__genre, .film__releaseDate, .film__runtime, .film__language, .film__rating {
+            margin: 10px 0;
+            line-height: 1.5;
         }
     } 
+}
+
+footer{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+    .film__container {
+        max-width: 100%;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .film__poster, .film__details {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .film__details {
+        padding: 15px;
+    }
+    .film__title {
+        font-size: 1.8rem;
+    }
 }

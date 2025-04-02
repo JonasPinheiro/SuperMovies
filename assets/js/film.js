@@ -11,13 +11,8 @@ async function carregarInformacoesPorId(id){
     console.log(data);
     document.querySelector("title").textContent = `SuperMovies - ${data.original_title}`;
 
-    if(data.poster_path != null){
-        document.querySelector(".film__img").src = `https://image.tmdb.org/t/p/w300${data.poster_path}`;
-    }
-    else{
-        document.querySelector(".film__img").src = "/assets/imgs/semImagem.jpg";
-    }
-
+    document.querySelector(".film__img").src = data.backdrop_path ? `https://image.tmdb.org/t/p/w300${data.poster_path}` : "/assets/imgs/semImagem.jpg";
+   
     document.querySelector(".film__title").textContent = data.original_title;
     document.querySelector(".film__overview").textContent = `Sinopse: ${data.overview}`
     document.querySelector(".film__genre").textContent = `Generos: ${data.genres.map(film => film.name).join(" - ")}`;
