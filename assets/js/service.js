@@ -82,8 +82,22 @@ export async function buscarFilmePorNome(nome){
     const language = "pt-BR";
 
     try{
+        const resGenereos = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=${language}`);
+        const { genres: generos } = await resGenereos.json();
+
+        const generosNames = {};
+
+        generos.forEach(genero =>{
+            generosNames[genero.id] = genero.name;
+        })
+
         const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${nome}&language=${language}`);
         const data = await res.json();
+
+        data.results.forEach(filme => {
+            filme.genre_name = filme.genre_ids.map(id => generosNames[id] || "Desconhecido");
+        });
+        
         return data;
     }catch(err){
         console.error(`Erro ao buscar filme!!! ${err}`);
